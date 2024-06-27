@@ -356,10 +356,6 @@ function _runtests_in_current_env(
                     ts = res.testset
                     print_errors_and_captured_logs(testitem, run_number; logs)
                     report_empty_testsets(testitem, ts)
-                    # It takes 2 GCs to do a full mark+sweep
-                    # (the first one is a partial mark, full sweep, the next one is a full mark).
-                    GC.gc(true)
-                    GC.gc(false)
                     if any_non_pass(ts) && run_number != max_runs
                         run_number += 1
                         @info "Retrying $(repr(testitem.name)). Run=$run_number."
